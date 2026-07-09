@@ -67,17 +67,10 @@ icarm_explain <- function(object, data = NULL, label = NULL) {
         out$importance_method <- "xgb_gain"
       }
     }
-  } else if (requireNamespace("vip", quietly=TRUE)) {
-    tryCatch({
-      vi <- vip::vi(fit)
-      out$importance <- tibble::tibble(
-        feature           = vi$Variable,
-        importance        = as.numeric(vi$Importance),
-        importance_scaled = as.numeric(vi$Importance) /
-          max(as.numeric(vi$Importance) + .Machine$double.eps)
-      ) |> dplyr::arrange(dplyr::desc(importance))
-      out$importance_method <- "vip"
-    }, error = function(e) NULL)
+  } else {
+    ## No built-in importance for this model type.
+    ## Use icarm_shap() for model-agnostic feature attribution.
+    out$importance_method <- "none"
   }
 
   # ── DALEX explainer ───────────────────────────────────────

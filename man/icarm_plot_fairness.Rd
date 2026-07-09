@@ -22,8 +22,9 @@ A ggplot2 object.
 Plot group-level fairness metric
 }
 \examples{
-m <- icarm_fit(Species ~ ., iris)
-iris$size <- factor(ifelse(iris$Sepal.Length>5.8,"large","small"))
-f <- icarm_fairness(m, iris, "Species", "size")
-icarm_plot_fairness(f, metric = "acc")
+m    <- icarm_fit(Species ~ ., iris)
+idf  <- iris
+idf$size <- factor(ifelse(idf$Sepal.Length > 5.8, "large", "small"))
+f <- icarm_fairness(m, idf, "Species", "size")
+print(icarm_plot_fairness(f, metric = "acc"))
 }

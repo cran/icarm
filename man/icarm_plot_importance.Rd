@@ -22,5 +22,5 @@ Plot feature importance
 \examples{
 m  <- icarm_fit(Species ~ ., iris)
 ex <- icarm_explain(m)
-icarm_plot_importance(ex)
+print(icarm_plot_importance(ex))
 }

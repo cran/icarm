@@ -35,8 +35,10 @@ Compare multiple icarm_models
 \examples{
 sp <- icarm_split(iris, stratify = "Species")
 m1 <- icarm_fit(Species ~ ., sp$train, model = "cart")
-m2 <- icarm_fit(Species ~ ., sp$train, model = "multinomial")
-cmp <- icarm_compare(list(CART=m1, Multinom=m2),
-                     sp$test, outcome="Species")
-print(cmp)
+if (requireNamespace("nnet", quietly = TRUE)) {
+  m2  <- icarm_fit(Species ~ ., sp$train, model = "multinomial")
+  cmp <- icarm_compare(list(CART = m1, Multinom = m2),
+                       sp$test, outcome = "Species")
+  print(cmp)
+}
 }

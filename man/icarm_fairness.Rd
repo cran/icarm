@@ -33,8 +33,8 @@ A tibble of class `icarm_fairness`.
 Group-level fairness audit
 }
 \examples{
-m <- icarm_fit(Species ~ ., iris)
-iris$size <- factor(ifelse(iris$Sepal.Length > 5.8,
-                           "large","small"))
-icarm_fairness(m, iris, "Species", "size")
+m    <- icarm_fit(Species ~ ., iris)
+idf  <- iris
+idf$size <- factor(ifelse(idf$Sepal.Length > 5.8, "large", "small"))
+icarm_fairness(m, idf, "Species", "size")
 }

@@ -4,6 +4,28 @@
 
 `%||%` <- function(a, b) if (!is.null(a)) a else b
 
+# Suppress R CMD check NOTEs for column names used in dplyr / ggplot2 NSE
+utils::globalVariables(c(
+  # icarm_shap
+  "shap_value", "mean_abs_shap", "feature_value",
+  "feat_num", "feat_min", "feat_max", "feat_range",
+  "feat_scaled", "feat_finite",
+  # icarm_plot_confusion
+  "label", "Actual", "Predicted", "Freq",
+  # icarm_plot_learning_curve
+  "train_size", "train_mean", "train_sd", "val_mean", "val_sd",
+  # icarm_plot_pdp
+  "lower", "upper", "mean_pred",
+  # icarm_plot_importance
+  "importance", "importance_scaled",
+  # icarm_plot_fairness
+  "grp", "value",
+  # icarm_plot_roc_groups
+  "fpr", "tpr", "group",
+  # icarm_plot_comparison / icarm_plot_thresholds
+  "model_name", "metric", "threshold"
+))
+
 .icarm_pal <- c(
   primary   = "2C3E50",
   secondary = "2980B9",
@@ -17,20 +39,43 @@
 .icarm_theme <- function(base_size = 11) {
   ggplot2::theme_minimal(base_size = base_size) +
     ggplot2::theme(
+      # Titles
       plot.title    = ggplot2::element_text(
         colour = paste0("#", .icarm_pal["primary"]),
-        face = "bold", size = base_size + 2),
+        face = "bold", size = base_size + 2,
+        margin = ggplot2::margin(b = 4)),
       plot.subtitle = ggplot2::element_text(
         colour = paste0("#", .icarm_pal["neutral"]),
-        size = base_size - 1),
+        size = base_size - 1,
+        margin = ggplot2::margin(b = 8)),
       plot.caption  = ggplot2::element_text(
-        colour = paste0("#", .icarm_pal["neutral"]),
-        size = base_size - 2, hjust = 0),
+        colour = "grey75", size = base_size - 3, hjust = 1),
+      plot.margin = ggplot2::margin(12, 14, 8, 10),
+      # Axes
       axis.title    = ggplot2::element_text(
-        colour = paste0("#", .icarm_pal["primary"])),
+        colour = "grey35", size = base_size - 0.5),
+      axis.text     = ggplot2::element_text(colour = "grey45"),
+      # Gridlines: only horizontal, very light
+      panel.grid.major.x = ggplot2::element_blank(),
+      panel.grid.major.y = ggplot2::element_line(
+        colour = "grey93", linewidth = 0.45),
+      panel.grid.minor   = ggplot2::element_blank(),
+      # Backgrounds
+      panel.background = ggplot2::element_rect(fill = "white", colour = NA),
+      plot.background  = ggplot2::element_rect(fill = "white", colour = NA),
+      # Legend
       legend.position  = "bottom",
-      panel.grid.minor = ggplot2::element_blank(),
-      strip.text = ggplot2::element_text(face = "bold")
+      legend.text      = ggplot2::element_text(colour = "grey35",
+                                               size = base_size - 1),
+      legend.title     = ggplot2::element_text(colour = "grey35",
+                                               size = base_size - 1),
+      legend.key.size  = ggplot2::unit(0.9, "lines"),
+      # Facets
+      strip.text = ggplot2::element_text(
+        face = "bold", colour = paste0("#", .icarm_pal["primary"]),
+        size = base_size - 0.5),
+      strip.background = ggplot2::element_rect(
+        fill = paste0("#", .icarm_pal["light"]), colour = NA)
     )
 }
 

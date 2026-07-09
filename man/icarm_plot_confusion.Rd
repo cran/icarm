@@ -22,5 +22,5 @@ Plot confusion matrix
 \examples{
 m    <- icarm_fit(Species ~ ., iris)
 yhat <- predict(m, iris)
-icarm_plot_confusion(iris$Species, yhat)
+print(icarm_plot_confusion(iris$Species, yhat))
 }

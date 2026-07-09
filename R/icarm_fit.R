@@ -46,7 +46,7 @@
 #' @export
 #'
 #' @examples
-#' # Works on any data — task auto-detected
+#' # Works on any data -- task auto-detected
 #' m1 <- icarm_fit(Species ~ ., iris)              # multiclass
 #' m2 <- icarm_fit(Sepal.Length ~ ., iris)         # regression
 #'

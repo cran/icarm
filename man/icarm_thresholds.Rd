@@ -27,8 +27,9 @@ A tibble with one row per threshold.
 Threshold sweep for binary classification
 }
 \examples{
-y   <- factor(sample(c("yes","no"), 200, replace = TRUE))
+set.seed(42)
+y   <- factor(sample(c("yes", "no"), 200, replace = TRUE))
 p   <- runif(200)
 thr <- icarm_thresholds(y, p, positive = "yes")
-icarm_plot_thresholds(thr)
+print(icarm_plot_thresholds(thr))
 }

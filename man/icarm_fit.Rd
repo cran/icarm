@@ -64,13 +64,15 @@ both interpretable and extended (black-box) model families.
 - `"svm"` — Support vector machine (e1071)
 }
 \examples{
-# Works on any data — task auto-detected
+# Works on any data -- task auto-detected
 m1 <- icarm_fit(Species ~ ., iris)              # multiclass
 m2 <- icarm_fit(Sepal.Length ~ ., iris)         # regression
 
-# Extended models
-m3 <- icarm_fit(Species ~ ., iris,
-                model = "random_forest")
+# Extended models (randomForest package required)
+if (requireNamespace("randomForest", quietly = TRUE)) {
+  m3 <- icarm_fit(Species ~ ., iris,
+                  model = "random_forest")
+}
 
 # Built-in datasets
 data(icarm_medical)
